@@ -1,0 +1,75 @@
+/*
+ĐỀ BÀI:
+Bạn có n đồng xu với các giá trị nhất định. Nhiệm vụ của bạn là tìm tất cả các khoản tiền bạn có thể tạo bằng những đồng xu này
+input: 
+4
+4 2 5 2
+output: 
+9
+2 4 5 6 7 8 9 11 13
+*/
+#define FOR(i,a,b) for(i=a;i<=b;i++)
+#define FORR(i,a,b) for(i=a;i>=b;i--)
+#define el endl;
+#define kiennseetinh ios_base::sync_with_stdio(false);cin.tie(NULL);
+#include<bits/stdc++.h>
+typedef long long ll;
+const long long L= 1e4+5;
+const long long N= 1e6;
+using namespace std;
+ll n,k,sum,i,m,q,p,x,ma,mi,j,vitri,t,y,s,u,r,h,g,an,dem;
+string w;
+ll a[N],b[N],c[N],d[N],A[N],Bool[N],e[N],f[N],dp[L][L],ans[N];
+void input(){
+    cin>>n;mi = 1e9;
+    FOR(i,1,n){
+        cin>>a[i]; ans[a[i]] = 1;
+        s = s + a[i];
+        mi = min(mi,a[i]);
+        dp[0][i] = 1;
+    }
+    sort(a,a+1+n);
+}
+void xuli(){
+    ll tam = 0;
+    dp[a[1]][1] = 1;
+    dp[0][1] = 1;
+    ans[s] = 1;
+    if(a[1] == 1) dp[1][1] = 1;
+
+    FOR(i,2,n){
+        FOR(j,1,s){
+            tam = j - a[i];
+            if(j >= a[i]) dp[j][i] = max(dp[j][i-1],dp[tam][i-1]);
+            else dp[j][i] = dp[j][i-1];
+                //dp[i][j] = max(dp[i-1][j],dp[i-1][tam]);
+        }
+    }
+    /*FOR(i,1,s){
+        //cout<<a[i]<<" ";
+        FOR(j,1,n){
+            cout<<dp[i][j]<<" ";
+        }
+        cout<<endl;
+    }*/u=0;
+    FOR(i,1,s){
+        if(dp[i][n] == 1){
+            dem++;
+            u++; b[u] = i;
+        }
+    }
+}
+void HSKien(){
+    cout<<dem<<endl;
+    FOR(i,1,u) cout<<b[i]<<" ";
+}
+int main()
+{
+    //freopen("MAXX.INP", "r", stdin);
+    //freopen("MAXX.OUT", "w", stdout);
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    input();
+    xuli();
+    HSKien();
+}
+
